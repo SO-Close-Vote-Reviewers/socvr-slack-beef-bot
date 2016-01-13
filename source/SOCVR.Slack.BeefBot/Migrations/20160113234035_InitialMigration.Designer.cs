@@ -8,7 +8,7 @@ using SOCVR.Slack.BeefBot.Database;
 namespace SOCVR.Slack.BeefBot.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20160113030141_InitialMigration")]
+    [Migration("20160113234035_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace SOCVR.Slack.BeefBot.Migrations
 
                     b.Property<DateTimeOffset>("ExpiresOn");
 
-                    b.Property<string>("Explination");
+                    b.Property<string>("Explanation");
 
                     b.Property<int>("OffendingChatUserId");
 

@@ -15,7 +15,7 @@ namespace SOCVR.Slack.BeefBot.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ExpiresOn = table.Column<DateTimeOffset>(nullable: false),
-                    Explination = table.Column<string>(nullable: true),
+                    Explanation = table.Column<string>(nullable: true),
                     OffendingChatUserId = table.Column<int>(nullable: false),
                     ReportedOn = table.Column<DateTimeOffset>(nullable: false),
                     ReporterUserId = table.Column<string>(nullable: false)

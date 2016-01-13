@@ -17,7 +17,7 @@ namespace SOCVR.Slack.BeefBot.Database
 
         public int OffendingChatUserId { get; set; }
 
-        public string Explination { get; set; }
+        public string Explanation { get; set; }
 
         public DateTimeOffset ReportedOn { get; set; }
         public DateTimeOffset ExpiresOn { get; set; }

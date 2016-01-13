@@ -22,7 +22,7 @@ namespace SOCVR.Slack.BeefBot.Migrations
 
                     b.Property<DateTimeOffset>("ExpiresOn");
 
-                    b.Property<string>("Explination");
+                    b.Property<string>("Explanation");
 
                     b.Property<int>("OffendingChatUserId");
 

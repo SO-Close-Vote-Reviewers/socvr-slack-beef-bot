@@ -38,7 +38,7 @@ namespace SOCVR.Slack.BeefBot.Responders
                 newBeef.ReporterUserId = reportedByUserName;
                 newBeef.ExpiresOn = DetermineExpirationDate(match);
                 newBeef.OffendingChatUserId = match.Groups[4].Value.Parse<int>();
-                newBeef.Explination = match.Groups[5].Value;
+                newBeef.Explanation = match.Groups[5].Value;
 
                 db.BeefEntries.Add(newBeef);
                 db.SaveChanges();
