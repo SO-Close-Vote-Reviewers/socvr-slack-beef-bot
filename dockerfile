@@ -29,6 +29,8 @@ RUN apt-get update && apt-get install -y \
 # copy in the source folder
 COPY source/ /tmp/source/
 
+RUN apt-get install -y nuget
+
 # compile it and copy the output to the /var/beefbot directory
 RUN \
   nuget restore /tmp/source/SOCVR.Slack.BeefBot.sln && \
