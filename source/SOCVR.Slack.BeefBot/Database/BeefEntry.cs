@@ -37,5 +37,13 @@ namespace SOCVR.Slack.BeefBot.Database
                 return Explanation.Substring(0, 50) + "...";
             }
         }
+
+        public bool HasExpired
+        {
+            get
+            {
+                return ExpiresOn < DateTimeOffset.UtcNow;
+            }
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace SOCVR.Slack.BeefBot.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BeefEntry>().Ignore(x => x.ShortExplanation);
+            modelBuilder.Entity<BeefEntry>().Ignore(x => x.HasExpired);
         }
     }
 }
