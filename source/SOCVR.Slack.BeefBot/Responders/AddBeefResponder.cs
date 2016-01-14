@@ -1,29 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MargieBot.Models;
-using MargieBot.Responders;
 using System.Text.RegularExpressions;
 using SOCVR.Slack.BeefBot.Database;
 using TCL.Extensions;
 
 namespace SOCVR.Slack.BeefBot.Responders
 {
-    class AddBeefResponder : IResponder
+    class AddBeefResponder : RegexResponder
     {
-        Regex commandPattern = new Regex(@"(?i)^beef (low|medium|high|(\d) (hours?|days?)) (\d+)(?: (.+))?$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-        public bool CanRespond(ResponseContext context)
-        {
-            return
-                commandPattern.IsMatch(context.Message.Text) && //  Must match command regex.
-                !context.Message.User.IsSlackbot && // Message must be said by a non-bot.
-                context.Message.MentionsBot; // Message must mention the bot.
-        }
-
-        public BotMessage GetResponse(ResponseContext context)
+        public override BotMessage GetResponse(ResponseContext context)
         {
             var match = commandPattern.Match(context.Message.Text);
 
@@ -48,6 +33,11 @@ namespace SOCVR.Slack.BeefBot.Responders
             {
                 Text = "Saved beef entry."
             };
+        }
+
+        protected override string GetCommandRegexPattern()
+        {
+            return @"(?i)^beef (low|medium|high|(\d) (hours?|days?)) (\d+)(?: (.+))?$";
         }
 
         private DateTimeOffset DetermineExpirationDate(Match match)

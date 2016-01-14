@@ -1,9 +1,5 @@
-﻿using MargieBot.Responders;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MargieBot.Models;
 using System.Text.RegularExpressions;
 using SOCVR.Slack.BeefBot.Database;
@@ -11,19 +7,9 @@ using TCL.Extensions;
 
 namespace SOCVR.Slack.BeefBot.Responders
 {
-    class BeefDetailsResponder : IResponder
+    class BeefDetailsResponder : RegexResponder
     {
-        Regex commandPattern = new Regex(@"(?i)^beef details (\d ?)+$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-        public bool CanRespond(ResponseContext context)
-        {
-            return
-                commandPattern.IsMatch(context.Message.Text) && //  Must match command regex.
-                !context.Message.User.IsSlackbot && // Message must be said by a non-bot.
-                context.Message.MentionsBot; // Message must mention the bot.
-        }
-
-        public BotMessage GetResponse(ResponseContext context)
+        public override BotMessage GetResponse(ResponseContext context)
         {
             var beefIds = commandPattern.Match(context.Message.Text)
                 .Groups[1]
@@ -61,6 +47,11 @@ namespace SOCVR.Slack.BeefBot.Responders
                     Text = outputMessage
                 };
             }
+        }
+
+        protected override string GetCommandRegexPattern()
+        {
+            return @"(?i)^beef details (\d ?)+$";
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using MargieBot.Responders;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MargieBot.Models;
 using SOCVR.Slack.BeefBot.Database;
 
@@ -14,8 +11,6 @@ namespace SOCVR.Slack.BeefBot.Responders
     /// </summary>
     class CurrentBeefsResponder : IResponder
     {
-
-
         public bool CanRespond(ResponseContext context)
         {
             return

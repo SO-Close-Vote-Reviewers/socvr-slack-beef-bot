@@ -187,6 +187,7 @@
     <Compile Include="Responders\EventsForResponder.cs" />
     <Compile Include="Responders\EventsTimeResponder.cs" />
     <Compile Include="Responders\HelpResponder.cs" />
+    <Compile Include="Responders\RegexResponder.cs" />
     <Compile Include="SettingsAccessor.cs" />
     <Compile Include="SOChatAccessor.cs" />
     <Compile Include="TableParser.cs" />

@@ -1,29 +1,10 @@
-﻿using MargieBot.Responders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MargieBot.Models;
-using System.Text.RegularExpressions;
-using SOCVR.Slack.BeefBot.Database;
-using TCL.Extensions;
+﻿using MargieBot.Models;
 
 namespace SOCVR.Slack.BeefBot.Responders
 {
-    class HelpResponder : IResponder
+    class HelpResponder : RegexResponder
     {
-        Regex commandPattern = new Regex(@"(?i)^beef help$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-        public bool CanRespond(ResponseContext context)
-        {
-            return
-                commandPattern.IsMatch(context.Message.Text) && //  Must match command regex.
-                !context.Message.User.IsSlackbot && // Message must be said by a non-bot.
-                context.Message.MentionsBot; // Message must mention the bot.
-        }
-
-        public BotMessage GetResponse(ResponseContext context)
+        public override BotMessage GetResponse(ResponseContext context)
         {
             var outputMessage = @"This bot is used for recording disagreements between ROs and chat members, or other unusual disruptions by chat members.
 
@@ -42,6 +23,11 @@ Command list: (`<>` are mandatory, `[]` are optional)
             {
                 Text = outputMessage
             };
+        }
+
+        protected override string GetCommandRegexPattern()
+        {
+            return @"(?i)^beef help$";
         }
     }
 }

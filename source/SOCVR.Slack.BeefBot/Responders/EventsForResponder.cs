@@ -1,29 +1,14 @@
-﻿using MargieBot.Responders;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MargieBot.Models;
-using System.Text.RegularExpressions;
 using SOCVR.Slack.BeefBot.Database;
 using TCL.Extensions;
 
 namespace SOCVR.Slack.BeefBot.Responders
 {
-    class BeefEventsForResponder : IResponder
+    class BeefEventsForResponder : RegexResponder
     {
-        Regex commandPattern = new Regex(@"(?i)^beef events for (\d+)$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-        public bool CanRespond(ResponseContext context)
-        {
-            return
-                commandPattern.IsMatch(context.Message.Text) && //  Must match command regex.
-                !context.Message.User.IsSlackbot && // Message must be said by a non-bot.
-                context.Message.MentionsBot; // Message must mention the bot.
-        }
-
-        public BotMessage GetResponse(ResponseContext context)
+        public override BotMessage GetResponse(ResponseContext context)
         {
             var offenderUserId = commandPattern.Match(context.Message.Text).Groups[1].Value.Parse<int>();
 
@@ -70,6 +55,11 @@ namespace SOCVR.Slack.BeefBot.Responders
                     Text = outputMessage
                 };
             }
+        }
+
+        protected override string GetCommandRegexPattern()
+        {
+            return @"(?i)^beef events for (\d+)$";
         }
     }
 }
