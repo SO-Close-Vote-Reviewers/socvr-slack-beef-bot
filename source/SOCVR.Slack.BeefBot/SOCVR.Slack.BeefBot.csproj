@@ -186,6 +186,7 @@
     <Compile Include="Responders\BeefEventsForResponder.cs" />
     <Compile Include="Responders\BeefEventsTime.cs" />
     <Compile Include="Responders\CurrentBeefsResponder.cs" />
+    <Compile Include="Responders\HelpResponder.cs" />
     <Compile Include="SettingsAccessor.cs" />
     <Compile Include="SOChatAccessor.cs" />
     <Compile Include="TableParser.cs" />
