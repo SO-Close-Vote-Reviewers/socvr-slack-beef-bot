@@ -171,6 +171,7 @@
   <ItemGroup>
     <Compile Include="Database\BeefEntry.cs" />
     <Compile Include="Database\DatabaseContext.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Migrations\20160113234035_InitialMigration.cs" />
     <Compile Include="Migrations\20160113234035_InitialMigration.designer.cs">
       <DependentUpon>20160113234035_InitialMigration.cs</DependentUpon>
@@ -179,6 +180,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responders\AddBeefResponder.cs" />
+    <Compile Include="Responders\BeefDetailsResponder.cs" />
     <Compile Include="Responders\BeefEventsForResponder.cs" />
     <Compile Include="Responders\BeefEventsTime.cs" />
     <Compile Include="Responders\CurrentBeefsResponder.cs" />
