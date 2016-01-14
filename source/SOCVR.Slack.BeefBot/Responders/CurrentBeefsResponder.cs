@@ -42,10 +42,10 @@ namespace SOCVR.Slack.BeefBot.Responders
                             "Reported On",
                             "Expires On"
                         },
-                        x => x.OffendingChatUserId,
+                        x => $"{SOChatAccessor.GetUserNameForChatId(x.OffendingChatUserId)} ({x.OffendingChatUserId})",
                         x => x.ReporterUserId,
-                        x => x.ReportedOn.ToString("yyyy-MM-dd HH:mm:ss 'UTC'"),
-                        x => x.ExpiresOn.ToString("yyyy-MM-dd HH:mm:ss 'UTC'"));
+                        x => x.ReportedOn.ToString("yyyy-MM-dd HH:mm 'UTC'"),
+                        x => x.ExpiresOn.ToString("yyyy-MM-dd HH:mm 'UTC'"));
 
                 var outputMessage = $"Current beefs:{Environment.NewLine}```{resultsTable}```";
 
