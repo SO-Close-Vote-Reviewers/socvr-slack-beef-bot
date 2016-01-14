@@ -33,6 +33,7 @@ namespace SOCVR.Slack.BeefBot
             bot.Responders.Add(new BeefEventsForResponder());
             bot.Responders.Add(new BeefDetailsResponder());
             bot.Responders.Add(new BeefCloseIndividual());
+            bot.Responders.Add(new BeefCloseAllForUserResponder());
             bot.Connect(botAPIKey);
 
             Console.CancelKeyPress += delegate
