@@ -34,6 +34,7 @@ RUN \
   nuget restore /tmp/source/SOCVR.Slack.BeefBot.sln && \
   xbuild /p:Configuration=Release /tmp/source/SOCVR.Slack.BeefBot.sln && \
   mkdir -p /srv/beefbot && \
+  mkdir -p /var/beef-data && \
   cp /tmp/source/SOCVR.Slack.BeefBot/bin/Release/* /srv/beefbot/
   
 CMD ["mono", "/srv/slackbot/SOCVR.Slack.BeefBot.exe"]
