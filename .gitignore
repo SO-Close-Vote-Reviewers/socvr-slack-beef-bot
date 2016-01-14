@@ -232,3 +232,4 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 /source/SOCVR.Slack.BeefBot/settings.json
+/docker-compose.yml
