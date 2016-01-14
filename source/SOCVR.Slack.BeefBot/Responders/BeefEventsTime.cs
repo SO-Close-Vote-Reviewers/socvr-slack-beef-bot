@@ -45,17 +45,19 @@ namespace SOCVR.Slack.BeefBot.Responders
                         .ToStringTable(
                             new[]
                             {
-                            "Offending User",
-                            "Reported By",
-                            "Reported On",
-                            "Expiration",
-                            "Explanation"
+                                "Id",
+                                "Offender",
+                                "Reported By",
+                                "Reported On",
+                                "Expires On",
+                                "Explanation"
                             },
-                            x => x.OffendingChatUserId,
+                            x => x.Id,
+                            x => $"{SOChatAccessor.GetUserNameForChatId(x.OffendingChatUserId)} ({x.OffendingChatUserId})",
                             x => x.ReporterUserId,
-                            x => x.ReportedOn,
-                            x => x.ExpiresOn,
-                            x => x.Explanation);
+                            x => x.ReportedOn.ToString("yyyy-MM-dd HH:mm 'UTC'"),
+                            x => x.ExpiresOn.ToString("yyyy-MM-dd HH:mm 'UTC'"),
+                            x => x.ShortExplanation);
 
                     resultsTable = $"```{resultsTable}```";
                 }
