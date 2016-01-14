@@ -34,11 +34,18 @@ namespace SOCVR.Slack.BeefBot.Responders
 
             using (var db = new DatabaseContext())
             {
-                var dbEntries = from dbRecord in db.BeefEntries
-                                join beefId in beefIds on dbRecord.Id equals beefId
-                                select dbRecord;
+                var dbEntries = (from dbRecord in db.BeefEntries
+                                 join beefId in beefIds on dbRecord.Id equals beefId
+                                 select dbRecord)
+                                 .OrderBy(x => x.ReportedOn)
+                                 .ToList();
 
                 var outputMessage = "";
+
+                if (dbEntries.Count != beefIds.Count)
+                {
+                    outputMessage = "*Warning, could not locate all requested entries. Ensure you have typed the Id numbers correctly.*\n\n";
+                }
 
                 foreach (var dbEntry in dbEntries)
                 {
