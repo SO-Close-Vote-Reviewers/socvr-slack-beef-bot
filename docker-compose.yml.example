@@ -1,0 +1,17 @@
+
+socvr-beef-bot_data:
+  image: socvr/beef-bot
+  entrypoint: /bin/true
+  volumes:
+    - /var/beef-data
+  
+socvr-beef-bot:
+  image: socvr/beef-bot
+  environment:
+    - SlackBotAPIKey=<slack api key>
+    - DBConnectionString="Filename=/var/beef-data/beefdatabase.db"
+    - LowExpirationHours=3
+    - MediumExpirationHours=24
+    - HighExpirationHours=72
+  volumes_from:
+    - socvr-beef-bot_data
