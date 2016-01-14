@@ -49,14 +49,12 @@ namespace SOCVR.Slack.BeefBot.Responders
                             new[]
                             {
                                 "Id",
-                                "Offender",
                                 "Reported By",
                                 "Reported On",
                                 "Expires On",
                                 "Explanation"
                             },
                             x => x.Id,
-                            x => $"{SOChatAccessor.GetUserNameForChatId(x.OffendingChatUserId)} ({x.OffendingChatUserId})",
                             x => x.ReporterUserId,
                             x => x.ReportedOn.ToString("yyyy-MM-dd HH:mm 'UTC'"),
                             x => x.ExpiresOn.ToString("yyyy-MM-dd HH:mm 'UTC'"),
