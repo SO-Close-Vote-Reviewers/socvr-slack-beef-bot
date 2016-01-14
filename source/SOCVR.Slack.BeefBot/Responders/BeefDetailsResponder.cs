@@ -50,7 +50,7 @@ namespace SOCVR.Slack.BeefBot.Responders
                 foreach (var dbEntry in dbEntries)
                 {
                     var header = $"*Id #{dbEntry.Id}*.";
-                    var details = $"Reported by {dbEntry.ReporterUserId} on {dbEntry.ReportedOn.ToStandardDisplayString()} against {SOChatAccessor.GetUserNameForChatId(dbEntry.OffendingChatUserId)} ({dbEntry.OffendingChatUserId}). Expires {dbEntry.ExpiresOn.ToStandardDisplayString()}.";
+                    var details = $"Reported by {dbEntry.ReporterUserId} on {dbEntry.ReportedOn.ToStandardDisplayString()} against {SOChatAccessor.GetUserNameForChatId(dbEntry.OffendingChatUserId)} ({dbEntry.OffendingChatUserId}). {(dbEntry.HasExpired ? "Expired" : "Expires")} {dbEntry.ExpiresOn.ToStandardDisplayString()}.";
                     var explanation = $"> {dbEntry.Explanation}";
 
                     outputMessage += $"{header} {details}\n{explanation}\n";
