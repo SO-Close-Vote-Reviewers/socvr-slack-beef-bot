@@ -28,8 +28,6 @@ namespace SOCVR.Slack.BeefBot
                 return envValue.Parse<T>();
             }
 
-            var allCommandLineArgs = Environment.GetCommandLineArgs();
-
             var settingsFilePath = "settings.json";
 
             if (File.Exists(settingsFilePath))
