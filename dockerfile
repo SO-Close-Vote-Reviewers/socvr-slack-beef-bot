@@ -27,6 +27,6 @@ RUN \
   xbuild /p:Configuration=Release /tmp/source/SOCVR.Slack.BeefBot.sln && \
   mkdir -p /srv/beefbot && \
   mkdir -p /var/beef-data && \
-  cp -a /tmp/source/SOCVR.Slack.BeefBot/bin/Release/. /srv/beefbot/
+  cp -r /tmp/source/SOCVR.Slack.BeefBot/bin/Release/* /srv/beefbot/
 
-CMD ["mono", "/srv/slackbot/SOCVR.Slack.BeefBot.exe"]
+CMD ["mono", "/srv/beefbot/SOCVR.Slack.BeefBot.exe"]
