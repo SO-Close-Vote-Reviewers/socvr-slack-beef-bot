@@ -3,6 +3,7 @@ FROM mono:4.2.1
 # Things to do:
 # - nuget
 # - git
+# - sqlite
 
 # Install things we can install without setup
 
@@ -12,7 +13,8 @@ RUN apt-get update && apt-get install -y \
  git \
  joe \
  nano \
- sudo
+ sudo \
+ sqlite3
 
 # copy in the source folder
 COPY source/ /tmp/source/
