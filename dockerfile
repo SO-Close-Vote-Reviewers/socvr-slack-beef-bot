@@ -14,17 +14,19 @@ RUN apt-get update && apt-get install -y \
  joe \
  nano \
  sudo \
- sqlite3
+ sqlite3 \
+ wget
 
 # copy in the source folder
 COPY source/ /tmp/source/
 
 # compile it and copy the output to the /srv/beefbot directory
 RUN \
-  nuget restore /tmp/source/SOCVR.Slack.BeefBot.sln && \
+  wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe && \
+  mono /nuget.exe restore /tmp/source/SOCVR.Slack.BeefBot.sln && \
   xbuild /p:Configuration=Release /tmp/source/SOCVR.Slack.BeefBot.sln && \
   mkdir -p /srv/beefbot && \
   mkdir -p /var/beef-data && \
-  cp /tmp/source/SOCVR.Slack.BeefBot/bin/Release/* /srv/beefbot/
+  cp -a /tmp/source/SOCVR.Slack.BeefBot/bin/Release/. /srv/beefbot/
 
 CMD ["mono", "/srv/slackbot/SOCVR.Slack.BeefBot.exe"]
