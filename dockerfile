@@ -1,15 +1,16 @@
 FROM mono:latest
 
 RUN apt-get update && apt-get install -y \
- sqlite3 \
  wget
+
+RUN \
+  wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 
 # copy in the source folder
 COPY source/ /tmp/source/
 
 # compile it and copy the output to the /srv/beefbot directory
 RUN \
-  wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe && \
   mono /nuget.exe restore /tmp/source/SOCVR.Slack.BeefBot.sln && \
   touch /tmp/source/SOCVR.Slack.BeefBot/settings.json && \
   xbuild /p:Configuration=Release /tmp/source/SOCVR.Slack.BeefBot.sln && \
