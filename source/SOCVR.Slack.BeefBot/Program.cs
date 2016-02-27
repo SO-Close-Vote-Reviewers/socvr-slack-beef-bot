@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using MargieBot;
 using SOCVR.Slack.BeefBot.Responders;
 using SOCVR.Slack.BeefBot.Database;
+using Microsoft.Data.Entity;
+using System.Net.Sockets;
 
 namespace SOCVR.Slack.BeefBot
 {
@@ -17,14 +19,12 @@ namespace SOCVR.Slack.BeefBot
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Starting program");
+
             var cs = SettingsAccessor.GetSetting<string>("DBConnectionString");
             var botAPIKey = SettingsAccessor.GetSetting<string>("SlackBotAPIKey");
 
-            //inital connection to database
-            using (var db = new DatabaseContext())
-            {
-                db.Database.EnsureCreated();
-            }
+            InitializeDatabase();
 
             bot.Aliases = new List<string>() { "beef" };
             bot.Responders.Add(new AddBeefResponder());
@@ -35,7 +35,11 @@ namespace SOCVR.Slack.BeefBot
             bot.Responders.Add(new BeefCloseIndividual());
             bot.Responders.Add(new BeefCloseAllForUserResponder());
             bot.Responders.Add(new HelpResponder());
-            bot.Connect(botAPIKey);
+
+            Console.WriteLine("Starting slack connection");
+            var botConnection = bot.Connect(botAPIKey);
+
+            bot.ConnectionStatusChanged += Bot_ConnectionStatusChanged;
 
             Console.CancelKeyPress += delegate
             {
@@ -45,6 +49,44 @@ namespace SOCVR.Slack.BeefBot
             };
 
             exitMre.WaitOne();
+        }
+
+        private static void Bot_ConnectionStatusChanged(bool isConnected)
+        {
+            if (!isConnected)
+            {
+                //if you got disconnected, exit
+                Console.WriteLine("Got disconnected from slack, exiting");
+                exitMre.Set();
+            }
+        }
+
+        private static void InitializeDatabase()
+        {
+            Console.WriteLine("Setting up database.");
+
+            //initial connection to database
+            using (var db = new DatabaseContext())
+            {
+                bool dbSetUp = false;
+
+                //loop until the connection works
+                while (!dbSetUp)
+                {
+                    try
+                    {
+                        //create the database if it does not exist and push and new migrations to it
+                        db.Database.Migrate();
+                        dbSetUp = true;
+                    }
+                    catch (SocketException ex)
+                    {
+                        Console.WriteLine("Caught error when trying to set up database. Waiting 30 seconds to retry.");
+                        Console.WriteLine(ex.Message);
+                        Thread.Sleep(30 * 1000);
+                    }
+                }
+            }
         }
     }
 }
