@@ -4,7 +4,7 @@ using Microsoft.Data.Entity.Migrations;
 
 namespace SOCVR.Slack.BeefBot.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace SOCVR.Slack.BeefBot.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:Serial", true),
                     ExpiresOn = table.Column<DateTimeOffset>(nullable: false),
                     Explanation = table.Column<string>(nullable: true),
                     OffendingChatUserId = table.Column<int>(nullable: false),

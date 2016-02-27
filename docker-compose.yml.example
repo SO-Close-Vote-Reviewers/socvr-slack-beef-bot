@@ -1,17 +1,30 @@
 
-socvr-beef-bot_data:
-  image: socvr/beef-bot
+socvr-beefbot-postgresql_data:
+  image: postgres:latest
+  container_name: socvr-beefbot-postgresql-data
   entrypoint: /bin/true
   volumes:
-    - /var/beef-data
-  
+    - /var/lib/postgres/data
+ 
+socvr-beefbot-postgresql:
+  image: postgres:latest
+  container_name: socvr-beefbot-postgres
+  environment:
+    POSTGRES_PASSWORD: 'beefbot'
+    POSTGRES_USER: 'beefbot'
+    POSTGRES_DB: 'beefbot-prod'
+  ports:
+    - 5432
+  volumes_from:
+    - socvr-beefbot-postgresql_data
+
 socvr-beef-bot:
   image: socvr/beef-bot
   environment:
-    - SlackBotAPIKey=<slack api key>
-    - DBConnectionString="Filename=/var/beef-data/beefdatabase.db"
-    - LowExpirationHours=3
-    - MediumExpirationHours=24
-    - HighExpirationHours=72
-  volumes_from:
-    - socvr-beef-bot_data
+    SlackBotAPIKey: <slack api key>
+    DBConnectionString: 'Server=db-container;Port=5432;Database=beefbot-prod;User Id=beefbot;Password=beefbot;'
+    LowExpirationHours: 3
+    MediumExpirationHours: 24
+    HighExpirationHours: 72
+  links:
+    - socvr-beefbot-postgresql:db-container
